@@ -12,7 +12,17 @@ def get_responses():
     return response_list
 
 def get_votes():
-    pass
+    print("Put in your votes! You can put \"-n name\" at the beginning to include your name in the list of voters.")
+    print("An empty vote submission will end the voting phase.")
+    while True:
+        votestring = input("> ")
+        match votestring.split():
+            case []:
+                break
+            case ["-n", name, *votes]:
+                pass
+            case [*votes]:
+                pass
 
 def display_results():
     pass
