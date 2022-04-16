@@ -20,8 +20,7 @@ def display_results():
 def main():
     question = get_question()
     responses = get_responses()
-    print(question)
-    print(responses)
+    votecounter = [0]*len(responses)
     get_votes()
     display_results()
 
