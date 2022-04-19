@@ -18,18 +18,33 @@ def print_response_options(responses):
         print("{num}: {val}".format(num=i, val=x))
         i += 1
 
-def get_votes():
+def handle_votes(response_counter, votes):
+    for vote in votes:
+        if (vote.isnumeric() == False):
+            print(vote.isnumeric())
+            raise TypeError("non-numeric vote")
+    for vote in votes:
+        response_counter[int(vote)-1] += 1
+    return response_counter
+
+def get_votes(response_counter):
     print("Put in your votes! You can put \"-n name\" at the beginning to include your name in the list of voters.")
     print("An empty vote submission will end the voting phase.")
+    voters = []
     while True:
-        votestring = input("> ")
-        match votestring.split():
-            case []:
-                break
-            case ["-n", name, *votes]:
-                pass
-            case [*votes]:
-                pass
+        try:
+            votestring = input("> ")
+            match votestring.split():
+                case []:
+                    break
+                case ["-n", name, *votes]:
+                    response_counter = handle_votes(response_counter, votes)
+                    voters.append(name)
+                case [*votes]:
+                    response_counter = handle_votes(response_counter, votes)
+        except TypeError:
+           print("Votes must only contain numbers and your name, and your name must come first.")
+    return response_counter, voters
 
 def display_results():
     pass
@@ -39,7 +54,6 @@ def main():
     responses = get_responses()
     print_response_options(responses)
     votecounter = [0]*len(responses)
-    get_votes()
-    display_results()
+    vote_counter, voters = get_votes(votecounter)
 
 main()
