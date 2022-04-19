@@ -11,6 +11,13 @@ def get_responses():
         response_list.append(response)
     return response_list
 
+def print_response_options(responses):
+    print("Response Options:")
+    i = 1
+    for x in responses:
+        print("{num}: {val}".format(num=i, val=x))
+        i += 1
+
 def get_votes():
     print("Put in your votes! You can put \"-n name\" at the beginning to include your name in the list of voters.")
     print("An empty vote submission will end the voting phase.")
@@ -30,6 +37,7 @@ def display_results():
 def main():
     question = get_question()
     responses = get_responses()
+    print_response_options(responses)
     votecounter = [0]*len(responses)
     get_votes()
     display_results()
