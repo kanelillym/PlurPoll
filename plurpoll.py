@@ -21,7 +21,6 @@ def print_response_options(responses):
 def handle_votes(response_counter, votes):
     for vote in votes:
         if (vote.isnumeric() == False):
-            print(vote.isnumeric())
             raise TypeError("non-numeric vote")
     for vote in votes:
         response_counter[int(vote)-1] += 1
@@ -44,6 +43,8 @@ def get_votes(response_counter):
                     response_counter = handle_votes(response_counter, votes)
         except TypeError:
            print("Votes must only contain numbers and your name, and your name must come first.")
+        except IndexError:
+            print("You tried to vote for a number that doesn't exist, please try again.")
     return response_counter, voters
 
 def display_results():
