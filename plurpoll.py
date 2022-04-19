@@ -47,8 +47,28 @@ def get_votes(response_counter):
             print("You tried to vote for a number that doesn't exist, please try again.")
     return response_counter, voters
 
-def display_results():
-    pass
+def display_single_result(options, votes, index):
+    print("{what}: {num}".format(what=options[index], num=votes[index]))
+
+def print_voter_list(voters):
+    if len(voters) == 0:
+        return
+    elif len(voters) == 1:
+        print("{name} voted.".format(name=voters[0]))
+        return
+    for i in range(0, len(voters)-1):
+        print(voters[i], end=", ")
+    print("and {name} voted.".format(name=voters[-1]))
+
+def display_results(question, options, votes, voters):
+    if max(votes) == 0:
+        print("No one voted.")
+        return
+    index_max = votes.index(max(votes))
+    print("{q}\n{o} won with {v} vote(s).".format(q=question, o=options[index_max], v=votes[index_max]))
+    for i in range(0, len(options)):
+        display_single_result(options, votes, i)
+    print_voter_list(voters)
 
 def main():
     question = get_question()
@@ -56,5 +76,6 @@ def main():
     print_response_options(responses)
     votecounter = [0]*len(responses)
     vote_counter, voters = get_votes(votecounter)
+    display_results(question, responses, vote_counter, voters)
 
 main()
